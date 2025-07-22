@@ -1,7 +1,8 @@
 
 import java.util.Scanner;
-public class Day2_Assignment2 {
 
+public class Day2_Assignment1 {
+	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		
