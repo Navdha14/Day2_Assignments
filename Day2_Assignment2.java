@@ -1,105 +1,133 @@
 
-import java.util.Scanner;
-public class Day2_Assignment2 {
 
+import java.util.Scanner;
+
+public class Day2_Assignment2 {
+	
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		
+		Scanner scanner= new Scanner(System.in);
 		char ch;
+		Day2_Assignment2 obj= new Day2_Assignment2();
 		do {
 			
-			System.out.println("Press 1 to Print table of a number.");
-			System.out.println("Press 2 to calculate factorial of a number.");
-			System.out.println("Press 3 to check prime weather a number is prime or not.");
-			System.out.println("Press 4 to Print FIbonacci Series.");
-			System.out.println("Press 5 to Exit.");
+			System.out.println("Press 1 to Count number of vowels and consonants.");
+			System.out.println("Press 2 to Check if the string is a palindrome");
+			System.out.println("Press 3 to reverse String.");
+			System.out.println("Press 4 to Convert the string to uppercase and lowercase");
+			System.out.println("Press 5 to Replace a word in the string");
+			System.out.println("Press 6 to Exit.");
 			System.out.println("Enter your choice: ");
 			
 			byte choice= scanner.nextByte();
+			scanner.nextLine();
 			
 			switch(choice) {
-				case 1: printTable(); break;
-				case 2: calculateFactorial();break;
-				case 3: checkPrime();break;
-				case 4: printFibonacci();break;
-				case 5: break;
+				case (byte)1: 
+					System.out.println("Enter a String");
+					String str= scanner.nextLine();
+					System.out.println("No of Vowels= "+ str +" = "+obj.countVowels(str));
+					System.out.println("No of Consonants= "+ str +" = "+obj.countConsonants(str));
+					break;
+				case (byte)2: 
+					System.out.println("Enter a String");
+					str= scanner.nextLine();
+					System.out.println(str+" is palindrome: "+ obj.isPalindrome(str)); ;
+					break;
+					
+				case (byte)3: 
+					System.out.println("Enter a String");
+					str= scanner.nextLine();
+					System.out.println("Reverse of "+ str+" = "+obj.reverseString(str)); ;
+					break;
+				case (byte)4: 
+					System.out.println("Enter a String");
+					str= scanner.nextLine();
+					System.out.println("Upper case of "+ str +" = "+obj.convertToUpperCase(str));
+					System.out.println("Lowercase of "+ str +" = "+obj.convertToLowerCase(str));
+					break;
+				case (byte)5: 
+					System.out.println("Enter a String : ");
+					str= scanner.nextLine();
+					System.out.println("Enter the old word that you want to replace.");
+					String oldWord= scanner.next();
+					String newWord= scanner.next();
+					System.out.println(obj.replaceWord(str, oldWord, newWord));
+				case (byte)6: break;
 				default: System.out.println("Enter valid choice.");
 			}
 			System.out.println("Back to Menu (Y/N):");
 			ch= scanner.next().charAt(0);
-			if(ch!='Y'){
+			if(ch!= 'Y') {
 				if((ch!='N')) {
 					System.out.println("You have entered invalid character please re run the program!");
 				}
 			}
 		}while(ch=='Y');
+
+
+	}
+	int countVowels(String str) {
+		int noOfVowel=0;
+		for(int i=0;i<str.length();i++) {
+			if((str.charAt(i)=='a') || (str.charAt(i)=='e')|| (str.charAt(i)=='o')|| (str.charAt(i)=='u') ||
+					(str.charAt(i)=='A') ||(str.charAt(i)=='E') || (str.charAt(i)=='I')|| (str.charAt(i)=='O') || (str.charAt(i)=='U')) {
+				noOfVowel++;
+			}
+			
+		}
+		return noOfVowel;
 	}
 	
-	public static void calculateFactorial() {
-		Scanner scanner= new Scanner(System.in);
-		System.out.println("Enter a number: ");
-		int n= scanner.nextInt();
-		int pro=1;
-		for(int i=n;i>0;i--) {
-			pro= pro*i;
+	int countConsonants(String str) {
+		int noOfConsonants=0;
+		for(int i=0;i<str.length();i++) {
+			if((str.charAt(i)!='a') && (str.charAt(i)!='e') && (str.charAt(i)!='o') && (str.charAt(i)!='u') &&
+					(str.charAt(i)!='A') && (str.charAt(i)!='E') && (str.charAt(i)!='I') && (str.charAt(i)!='O') && (str.charAt(i)!='U')) {
+				noOfConsonants++;
+			}
+			noOfConsonants++;
 		}
-		System.out.println("Factorial of "+n+" = "+pro);
+		return noOfConsonants;
 	}
-	public static void printTable() {
-		Scanner scanner= new Scanner(System.in);
-		System.out.println("Enter a number: ");
-		int n= scanner.nextInt();
+	boolean isPalindrome(String str) {
+		String strReverse=reverseString(str);
 		
-		for(int i=1;i<=10;i++) {
-			System.out.printf("%d * %d = %d", n, i, (n*i) );
-			System.out.println();
-		}
-	}
-	public static void checkPrime() {
-		Scanner scanner= new Scanner(System.in);
-		System.out.println("Enter a number: ");
-		int n= scanner.nextInt();
-		if(n<2) {
-			System.out.println(n+" is not prime");
-			return;
-		}
-		int count=0;
-		for(int i=2;i<n;i++) {
-			if(n%i!=0) {
-				count++;
-			}
-			else {
-				break;
-			}
-		}
-		if(count==(n-2)) {
-			System.out.println(n+ " is prime");
+		if(str.equalsIgnoreCase(strReverse)) {
+			return true;
 		}else {
-			System.out.println(n+" is not prime");
+			return false;
 		}
 	}
-	public static void printFibonacci() {
-		Scanner scanner= new Scanner(System.in);
-		System.out.println("Enter a number: ");
-		int n= scanner.nextInt();
-		int a=0, b=1;
-		for (int i = 1; i <= n; i++) {
-            System.out.print(a + " ");
-            
-            int next = a + b;
-            a = b;
-            b = next;
-        }
-		System.out.println();
+	String reverseString(String str) {
+		String strReverse="";
+		for(int i=str.length()-1; i>=0;i--) {
+			strReverse+=str.charAt(i);
+		}
+		return strReverse;
 	}
+	String convertToUpperCase(String str) {
+		return str.toUpperCase();
+	}
+	String convertToLowerCase(String str) {
+		return str.toLowerCase();
+	}
+	String replaceWord(String str, String oldWord, String newWord) {
+		return str.replace(oldWord, newWord);
+	}
+	/*
+	
+
+	
+Convert the string to uppercase and lowercase
+
+	Replace a word in the string
+
+	String toUpperCase(String str)
+
+	String toLowerCase(String str)
+
+	String replaceWord(String str, String oldWord, String newWord)
+
+	 * */
 
 }
-/*
-********** MENU **********
-1. Print Table of a Number
-2. Calculate Factorial
-3. Check Prime Number
-4. Print Fibonacci Series
-5. Exit
-**************************
-*/
